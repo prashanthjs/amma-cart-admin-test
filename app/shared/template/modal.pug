@@ -1,0 +1,12 @@
+mixin form-modal(title, formName)
+
+  .container-fluid.modal-content
+      +app-form(formName)
+        .modal-header
+          h4.modal-title
+            = title
+        .modal-body
+          block
+        .modal-footer
+          +submit-primary('Save')
+          +app-button-close('Close')

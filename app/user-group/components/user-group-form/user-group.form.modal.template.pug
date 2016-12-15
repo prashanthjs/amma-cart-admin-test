@@ -1,0 +1,34 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit user group: '+id: 'Create user group'}}", formName)
+  .row
+    .col-xs-6
+      - name = '_id';
+      - controlName = formName +'.controls.'+name;
+      +app-form-group(controlName)
+        label  Name
+        input.form-control(type='text', formControlName=name, [readonly]='id')
+        +app-form-errors(controlName)
+          +app-form-error(controlName, 'required')
+            | Please enter user group name
+    .col-xs-4
+      - name = 'title';
+      - controlName = formName +'.controls.'+name;
+      +app-form-group(controlName)
+        label  Title
+        input.form-control(type='text', formControlName=name)
+        +app-form-errors(controlName)
+          +app-form-error(controlName, 'required')
+            | Please enter title
+  .row
+    h3 Roles
+    .col-xs-12(*ngIf='roles')
+      .col-xs-4(template="ngFor let role of roles; let i = index")
+        label
+          input(type='checkbox', value='{{role._id}}', name='roles_{{role._id}}', [checked]=formName + '.controls.roles.value.indexOf(role._id)>=0', (change) = 'roleChanged(role._id, $event)')
+          span.m-l-xs
+            | {{role.title}}
+
+

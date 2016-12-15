@@ -1,0 +1,21 @@
+mixin app-form(name)
+  form([formGroup]=name, novalidate='', (ngSubmit)='submit($event)')
+    block
+
+
+mixin app-form-group(controlName)
+  .form-group([ngClass]!="{'has-error':!(" + controlName + ".valid || (" + controlName + ".pristine && !submitted))}")
+    block
+
+
+mixin app-form-errors(controlName)
+  div(*ngIf != "!(" + controlName + ".valid || (" + controlName + ".pristine && !submitted))")
+    block
+
+mixin app-form-error(controlName, errorType)
+  small.text-danger(*ngIf !=  controlName + ".errors." + errorType)
+    block
+
+mixin app-button-close(caption)
+  button.btn(class="btn-default",type="button", (click) = "close()")
+    = caption

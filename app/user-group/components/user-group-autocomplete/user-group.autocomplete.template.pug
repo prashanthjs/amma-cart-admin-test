@@ -1,0 +1,3 @@
+input.form-control(type='text', [editable]="false", [ngbTypeahead]="search", [resultTemplate]="userGroupTemplate", [inputFormatter]="formatter", [(ngModel)]= 'selectedItem', (selectItem) = "onChange($event)")
+template(#userGroupTemplate='', let-r='result', let-t='term')
+  | {{r._id||r}}

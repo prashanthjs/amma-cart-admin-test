@@ -1,0 +1,59 @@
+mixin app-form-address(formName, groupName)
+  .row(formGroupName = groupName)
+    .col-xs-12
+      .row
+        .col-xs-6
+          - name = 'addressLine1';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  Address Line1
+            input.form-control(type='text',formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter address line 1
+
+        .col-xs-6
+          - name = 'addressLine2';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  Address Line2
+            input.form-control(type='text',formControlName=name)
+
+      .row
+        .col-xs-6
+          - name = 'town';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  Town/City
+            input.form-control(type='text',formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter town/city name
+
+        .col-xs-6
+          - name = 'county';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  County
+            input.form-control(type='text',formControlName=name)
+
+      .row
+        .col-xs-6
+          - name = 'country';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  Country
+            input.form-control(type='text',formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter country name
+
+        .col-xs-6
+          - name = 'postcode';
+          - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+          +app-form-group(controlName)
+            label  Postcode
+            input.form-control(type='text',formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter postcode

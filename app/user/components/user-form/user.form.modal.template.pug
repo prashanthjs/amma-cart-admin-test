@@ -1,0 +1,189 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit user: '+id: 'Create user'}}", formName)
+
+  .row
+    .col-xs-4
+      .row
+        .col-xs-12
+          - name = 'profilePic';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            .row
+              .col-xs-12.profile-pic(*ngIf=controlName + '.value')
+                img([src]=controlName + '.value',  height=250)
+              .col-xs-12.profile-pic(*ngIf= '!' + controlName + '.value')
+                img(src= 'http://placehold.it/250X250?text=Upload+picture')
+            .row
+              .col-xs-6
+                label.btn.btn-block.btn-primary
+                  span.glyphicon.glyphicon-refresh.spinning(*ngIf='profilePicLoading')
+                  |   {{profilePicLoading?'Uploading...': 'Upload'}}
+                  app-file([formElement]=controlName, style='display:none', (loadingStart) = 'profilePicLoading = true', (loadingComplete) = 'profilePicLoading = false')
+              .col-xs-6(*ngIf=controlName + '.value')
+                button.btn.btn-block.btn-danger((click)="profilePicRemove()", type="button")
+                  | Remove
+    .col-xs-8
+      .row
+        .col-xs-6
+          - name = '_id';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Username
+            input.form-control(type='text', formControlName=name, [readonly]='id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your username
+
+        .col-xs-6
+          - name = 'email';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Email
+            input.form-control(type='email', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your email
+      .row
+        .col-xs-4
+          - name = 'firstName';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  First Name
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your first name
+          - name = 'lastName';
+          - controlName = formName +'.controls.'+name;
+
+        .col-xs-4
+          - name = 'middleName';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Middle Name
+            input.form-control(type='text', formControlName=name)
+
+        .col-xs-4
+          - name = 'lastName';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Last Name
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your last name
+
+      .row(*ngIf = '!id')
+        .col-xs-6
+          - name = 'password';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Password
+            input.form-control(type='password', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your password
+        .col-xs-6
+          - name = 'rePassword';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Re-enter your password
+            input.form-control(type='password', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please re-enter your password
+
+
+      .row
+        .col-xs-6
+          - name = 'dob';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Birth date
+            .input-group
+              input.form-control(placeholder='yyyy-mm-dd', name='dob', ngbDatepicker='', #d='ngbDatepicker', formControlName=name)
+              .input-group-addon((click)='d.toggle()')
+                span.glyphicon-calendar.glyphicon
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter your date of birth
+
+        .col-xs-6
+          - name = 'gender';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Gender
+            div.col-xs-12
+              label.radio-inline
+                input(type='radio', value='male', formControlName=name, [checked]= controlName + ".value === 'male'")
+                |  Male
+              label.radio-inline
+                input(type='radio', value='female',formControlName=name, [checked]= controlName + ".value === 'female'")
+                |  Female
+
+      .row
+        .col-xs-6
+          - name = 'isActive';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Is Active?
+            div.col-xs-12
+              label.radio-inline
+                input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                |  Yes
+              label.radio-inline
+                input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                |  No
+        .col-xs-6
+          - name = 'contactNumber';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Contact Number
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | This field is required
+
+      .row
+        .col-xs-6
+          - name = 'userGroup';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  User Groups
+            user-group-autocomplete([formElement]=controlName)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please select a user group
+
+  .row
+    h3 Availability
+    .col-xs-12(formGroupName = 'available')
+      .row(formGroupName = 'store')
+        .col-xs-6
+          - name = 'name';
+          - controlName = formName +'.controls.available.controls.store.controls.'+name;
+          +app-form-group(controlName)
+            label  Store
+            store-autocomplete([formElement]=controlName)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please select a store
+        .col-xs-6
+          - name = 'availableToChildren';
+          - controlName = formName +'.controls.available.controls.store.controls.'+name;
+          +app-form-group(controlName)
+            label  Is Available to child stores?
+            div.col-xs-12
+              label.radio-inline
+                input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                |  Yes
+              label.radio-inline
+                input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                |  No
+
+  .row
+    h3 Address
+    +app-form-address(formName, 'address')

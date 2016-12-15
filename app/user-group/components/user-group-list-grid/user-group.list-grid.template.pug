@@ -1,0 +1,13 @@
+kendo-grid([data]='gridData', [pageSize] = "pageSize", [skip]="skip", [pageable]="true", [sortable]="{ mode: 'multiple' }", [sort] = "sort")
+  kendo-grid-column(field='_id', title='User group name')
+  kendo-grid-column(field='title', title='Title')
+  kendo-grid-column(field='isLocked', title ='Is Locked?',  width='120')
+    template(kendoCellTemplate='', let-dataItem='')
+      input(type='checkbox', [checked]='dataItem.isLocked', disabled='')
+  kendo-grid-column(field='action', title=' ')
+    template(kendoCellTemplate='', let-dataItem='')
+      button.btn.btn-primary((click)='openForm(dataItem._id)')
+        i.glyphicon.glyphicon-pencil
+      button.btn.btn-danger.m-l-xs((click)='remove(dataItem._id)', *ngIf='!dataItem.isLocked')
+        i.glyphicon.glyphicon-remove
+

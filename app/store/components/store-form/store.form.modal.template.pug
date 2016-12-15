@@ -1,0 +1,104 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit store: '+id: 'Create store'}}", formName)
+
+  .row
+    .col-xs-4
+      .row
+        .col-xs-12
+          - name = 'logo';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            .row
+              .col-xs-12.profile-pic(*ngIf=controlName + '.value')
+                img([src]=controlName + '.value',  height=250)
+              .col-xs-12.profile-pic(*ngIf= '!' + controlName + '.value')
+                img(src= 'http://placehold.it/250X250?text=Upload+logo')
+            .row
+              .col-xs-6
+                label.btn.btn-block.btn-primary
+                  span.glyphicon.glyphicon-refresh.spinning(*ngIf='logoLoading')
+                  |   {{logoLoading?'Uploading...': 'Upload'}}
+                  app-file([formElement]=controlName, style='display:none', (loadingStart) = 'logoLoading = true', (loadingComplete) = 'logoLoading = false')
+              .col-xs-6(*ngIf=controlName + '.value')
+                button.btn.btn-block.btn-danger((click)="logoRemove()", type="button")
+                  | Remove
+    .col-xs-8
+      .row
+        .col-xs-6
+          - name = '_id';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Name
+            input.form-control(type='text', formControlName=name, [readonly]='id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter store name
+        .col-xs-4
+          - name = 'title';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Title
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter title
+
+      .row
+        .col-xs-6
+          - name = 'email';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Email
+            input.form-control(type='email', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter email
+        .col-xs-6
+          - name = 'website';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Website
+            input.form-control(type='url', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter website url
+
+      .row
+        .col-xs-6
+          - name = 'isActive';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Is Active?
+            div.col-xs-12
+              label.radio-inline
+                input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                |  Yes
+              label.radio-inline
+                input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                |  No
+        .col-xs-6
+          - name = 'contactNumber';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Contact Number
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter contact number
+
+      .row
+        .col-xs-6
+          - name = 'parent';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Parent store
+            store-autocomplete([formElement]=controlName, [limit]='5', [skipId] = 'id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please select a store
+  .row
+    h3 Address
+    +app-form-address(formName, 'address')
