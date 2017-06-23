@@ -1,0 +1,7 @@
+input.form-control(type='text', [editable]="false", [ngbTypeahead]="search", [resultTemplate]="categoryTemplate", [inputFormatter]="formatter", [(ngModel)]= 'selectedItem', (selectItem) = "onChange($event)")
+template(#categoryTemplate='', let-r='result', let-t='term')
+  | {{r._id||r}}
+span.tag.label.label-info
+  span {{ formElement.value }}
+  a
+   span.remove.glyphicon.glyphicon-remove-sign.glyphicon-white

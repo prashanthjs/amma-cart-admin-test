@@ -1,0 +1,1 @@
+<input class="form-control" type="text" [editable]="false" [ngbTypeahead]="search" [resultTemplate]="productTemplate" [inputFormatter]="formatter" [(ngModel)]="selectedItem" (selectItem)="onChange($event)"/><template #productTemplate="" let-r="result" let-t="term">{{r._id||r}}</template>

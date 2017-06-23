@@ -1,0 +1,19 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-sm-4
+    h2 Manage product features
+    ol.breadcrumb
+      li
+        a(href='#/') Home
+      li.active
+        strong product features
+  .col-sm-8
+    .title-action
+      button.btn.btn-primary((click)="openForm()") Create product_feature
+.row
+  .col-lg-12
+    .wrapper.wrapper-content
+      .animated.fadeInRightBig
+        .ibox
+          .ibox-content
+            product-feature-list-grid
+

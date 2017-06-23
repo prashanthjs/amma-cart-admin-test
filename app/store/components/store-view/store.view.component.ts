@@ -11,7 +11,7 @@ import {AppViewComponent} from "../../../shared/core/app.view.component";
 @Component({
   moduleId: module.id,
   selector: 'store-view',
-  templateUrl: 'store-view.template.html'
+  templateUrl: 'store.view.template.html'
 })
 
 export class StoreViewComponent extends AppViewComponent<StoreModel>{

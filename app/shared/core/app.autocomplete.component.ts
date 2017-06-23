@@ -7,31 +7,17 @@ import {NgbTypeaheadSelectItemEvent} from "@ng-bootstrap/ng-bootstrap";
 import {AppDataService} from "./app.data.service";
 
 
-export class AppAutoCompleteComponent<Model> implements OnInit {
+export class AppAutoCompleteComponent<Model> {
 
   searching: boolean = false;
   searchFailed: boolean = false;
   @Input() formElement: FormControl;
   @Input() skipId: string = null;
   @Input() limit: number = 5;
-  selectedItem: any = {};
+  selectedItem: any = null;
 
   constructor(protected dataService: AppDataService<Model>) {
 
-  }
-
-  ngOnInit(): void {
-    this.setSelectedItem(this.formElement.value);
-    this.formElement.valueChanges.subscribe(value => {
-      this.setSelectedItem(value);
-    });
-  }
-
-  setSelectedItem(value: string): void {
-
-    if (!this.selectedItem || value != this.selectedItem._id) {
-      this.selectedItem = {_id: value};
-    }
   }
 
   search = (text$: Observable<string>) =>
@@ -40,7 +26,6 @@ export class AppAutoCompleteComponent<Model> implements OnInit {
       .distinctUntilChanged()
       .do(() => {
         this.searching = true;
-        this.formElement.setValue('');
       })
       .switchMap(term =>
         this.dataService.search(term, this.limit, this.skipId)
@@ -51,9 +36,10 @@ export class AppAutoCompleteComponent<Model> implements OnInit {
           }))
       .do(() => this.searching = false);
 
-  formatter = (x: any) => x._id;
+  formatter = (x: any) => '';
 
   onChange(event: NgbTypeaheadSelectItemEvent): void {
     this.formElement.setValue(event.item._id);
+    this.selectedItem = {_id: ''};
   }
 }

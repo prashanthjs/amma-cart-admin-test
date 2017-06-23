@@ -1,0 +1,19 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-sm-4
+    h2 Manage categories
+    ol.breadcrumb
+      li
+        a(href='#/') Home
+      li.active
+        strong categories
+  .col-sm-8
+    .title-action
+      button.btn.btn-primary((click)="openForm()") Create category
+.row
+  .col-lg-12
+    .wrapper.wrapper-content
+      .animated.fadeInRightBig
+        .ibox
+          .ibox-content
+            category-list-grid
+

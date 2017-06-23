@@ -1,0 +1,78 @@
+include ../../../shared/template/common.pug
+.row.wrapper.border-bottom.white-bg.page-heading(*ngIf = 'model')
+  .col-sm-4
+    h2 {{model.title}}
+    ol.breadcrumb
+      li
+        a(href='#/') Home
+      li.active
+        a(href='#/categories') Categories
+      li.active
+        strong {{model._id}}
+  .col-sm-8
+    .title-action
+      button.btn.btn-primary((click)="openForm()")
+        i.glyphicon.glyphicon-pencil.m-r-xs
+        | Edit
+.row(*ngIf = 'model')
+  .col-xs-12
+    .wrapper.wrapper-content
+      .animated.fadeInRightBig
+        .row
+          .col-xs-3
+            .ibox
+              .ibox-content
+                .center-block.clearfix
+                  .row
+                    .col-xs-12(*ngIf!='model.images &&  model.images.length')
+                      carousel([interval]='5000', [noWrap]='false')
+                        slide(template !='ngFor let image of model.images; let index=index')
+                          img.col-xs-12.img-responsive([src]='image', style='margin:auto;')
+                    .col-xs-12(*ngIf!= '!(model.images &&  model.images.length)')
+                      img.col-xs-12.img-responsive(src= 'http://placehold.it/250X250?text=Upload+image')
+          .col-xs-9
+            .ibox
+              .ibox-content
+                .row
+                  .col-xs-6
+                    ul.list-group.clear-list.m-t
+                      li.list-group-item.first-item
+                        span.pull-right {{ model._id}}
+                        span.font-bold Category name
+
+                      li.list-group-item
+                        span.pull-right
+                          span.label.label-success(*ngIf='model.isActive')
+                            | Active
+                          span.label.label-danger(*ngIf='!model.isActive')
+                            | In Active
+                        span.font-bold Status
+                      li.list-group-item
+                        span.pull-right {{ model.parent}}
+                        span.font-bold Parent category
+                  .col-xs-6
+                    ul.list-group.clear-list.m-t
+                      li.list-group-item
+                        span.pull-right {{ model.title}}
+                        span.font-bold Title
+                      li.list-group-item
+                        span.pull-right
+                          span.label.label-danger(*ngIf='model.isLocked')
+                            | Yes
+                          span.label.label-success(*ngIf='!model.isLocked')
+                            | No
+                        span.font-bold Is Locked?
+
+        .row(*ngIf='model.description')
+          .col-xs-12
+            .ibox
+              .ibox-content
+                h2.font-bold.m-b-xs Description
+                .row
+                  .col-xs-12
+                    p {{model.description}}
+
+
+
+
+

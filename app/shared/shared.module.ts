@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppFileComponent} from "./component/app-file/app-file.component";
 import {ToastyModule} from "ng2-toasty";
 import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { CarouselModule } from 'ng2-bootstrap/ng2-bootstrap';
+import {StoreModule} from "../store/store.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
     BootstrapModalModule,
     FormsModule,
     ReactiveFormsModule,
-    AppFileComponent
+    AppFileComponent,
+    CarouselModule
   ],
   providers: [AppHttp]
 })

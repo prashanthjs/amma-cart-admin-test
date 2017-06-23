@@ -11,7 +11,7 @@ import {USER_LOADING_ERROR_MESSAGE} from "../../config/index";
 @Component({
   moduleId: module.id,
   selector: 'user-view',
-  templateUrl: 'user-view.template.html'
+  templateUrl: 'user.view.template.html'
 })
 
 export class UserViewComponent extends AppViewComponent<UserModel> {

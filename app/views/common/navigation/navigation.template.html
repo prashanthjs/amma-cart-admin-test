@@ -31,6 +31,21 @@
         <a [routerLink]="['./user-groups']"><i class="fa fa-desktop"></i> <span class="nav-label">User groups</span>
         </a>
       </li>
+      <li [ngClass]="{active: activeRoute('categories')}">
+        <a [routerLink]="['./categories']"><i class="fa fa-desktop"></i> <span class="nav-label">Categories</span>
+        </a>
+      </li>
+
+      <li [ngClass]="{active: activeRoute('product-features')}">
+        <a [routerLink]="['./product-features']"><i class="fa fa-desktop"></i> <span class="nav-label">Product features</span>
+        </a>
+      </li>
+
+      <li [ngClass]="{active: activeRoute('products')}">
+        <a [routerLink]="['./products']"><i class="fa fa-desktop"></i> <span class="nav-label">Products</span>
+        </a>
+      </li>
+
     </ul>
 
   </div>

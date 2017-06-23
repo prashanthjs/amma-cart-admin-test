@@ -63,6 +63,8 @@ export class AppModal<Model> implements CloseGuard, ModalComponent<FormModalCont
         .do(() => this.loadingService.start())
         .subscribe(this.handleSave, this.handleModelSaveError, () => this.loadingService.complete());
     }
+    console.log(this.modelForm.value);
+    console.log(this.modelForm);
     event.preventDefault();
   }
 

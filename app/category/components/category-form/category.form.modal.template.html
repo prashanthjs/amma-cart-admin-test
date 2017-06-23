@@ -1,0 +1,120 @@
+<div class="container-fluid modal-content">
+    <form [formGroup]="modelForm" novalidate="" (ngSubmit)="submit($event)">
+        <div class="modal-header"><h4 class="modal-title">{{id?'Edit category: '+id: 'Create category'}}</h4></div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls.images.valid || (modelForm.controls.images.pristine && !submitted))}">
+                                <div class="row">
+                                    <div class="col-xs-12 profile-pic"
+                                         *ngIf="modelForm.controls.images.value && modelForm.controls.images.value.length">
+                                        <carousel [interval]="5000" [noWrap]="false">
+                                            <slide template="ngFor let image of modelForm.controls.images.value; let index=index">
+                                                <img class="col-xs-12 img-responsive" [src]="image"
+                                                     style="margin:auto"/></slide>
+                                        </carousel>
+                                    </div>
+                                    <div class="col-xs-12 profile-pic"
+                                         *ngIf="!(modelForm.controls.images.value && modelForm.controls.images.value.length)">
+                                        <img src="http://placehold.it/250X250?text=Upload+image"/></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12"
+                                         *ngIf="modelForm.controls.images.value && modelForm.controls.images.value.length">
+                                        <div class="row">
+                                            <div class="col-xs-4 thumbnail-wrapper"
+                                                 template="ngFor let image of modelForm.controls.images.value; let index=index">
+                                                <img class="img-responsive img-thumbnail" [src]="image"/>
+                                                <button class="btn btn-danger btn-circle" type="button"
+                                                        (click)="removeImage(index)"><i
+                                                        class="glyphicon glyphicon-remove"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-t-xs">
+                                    <div class="col-xs-6"><label class="btn btn-block btn-primary"><span
+                                            class="glyphicon glyphicon-refresh spinning" *ngIf="imageLoading"></span>
+                                        {{imageLoading?'Uploading...': 'Add Image'}}
+                                        <app-file [formElement]="modelForm.controls.images" style="display:none"
+                                                  (loadingStart)="imageLoading = true"
+                                                  (loadingComplete)="imageLoading = false" [multiple]="true"></app-file>
+                                    </label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls._id.valid || (modelForm.controls._id.pristine && !submitted))}">
+                                <label> Name</label><input class="form-control" type="text" formControlName="_id"
+                                                           [readonly]="id"/>
+                                <div *ngIf="!(modelForm.controls._id.valid || (modelForm.controls._id.pristine && !submitted))">
+                                    <small class="text-danger" *ngIf="modelForm.controls._id.errors.required">Please
+                                        enter category name
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls.title.valid || (modelForm.controls.title.pristine && !submitted))}">
+                                <label> Title</label><input class="form-control" type="text" formControlName="title"/>
+                                <div *ngIf="!(modelForm.controls.title.valid || (modelForm.controls.title.pristine && !submitted))">
+                                    <small class="text-danger" *ngIf="modelForm.controls.title.errors.required">Please
+                                        enter title
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls.isActive.valid || (modelForm.controls.isActive.pristine && !submitted))}">
+                                <label> Is Active?</label>
+                                <div class="col-xs-12"><label class="radio-inline"><input type="radio" [value]="true"
+                                                                                          formControlName="isActive"
+                                                                                          [checked]="modelForm.controls.isActive.value === true"/>
+                                    Yes</label><label class="radio-inline"><input type="radio" [value]="false"
+                                                                                  formControlName="isActive"
+                                                                                  [checked]="modelForm.controls.isActive.value === false"/>
+                                    No</label></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls.parent.valid || (modelForm.controls.parent.pristine && !submitted))}">
+                                <label> Parent category</label>
+                                <category-autocomplete [formElement]="modelForm.controls.parent" [limit]="5"
+                                                       [skipId]="id"></category-autocomplete>
+                                <div *ngIf="!(modelForm.controls.parent.valid || (modelForm.controls.parent.pristine && !submitted))">
+                                    <small class="text-danger" *ngIf="modelForm.controls.parent.errors.required">Please
+                                        select a category
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group"
+                                 [ngClass]="{'has-error':!(modelForm.controls.description.valid || (modelForm.controls.description.pristine && !submitted))}">
+                                <label> Description</label><textarea class="form-control" row="5"
+                                                                     formControlName="description"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer"><input class="btn btn-primary" type="submit" value="Save"/>
+            <button class="btn btn-default" type="button" (click)="close()">Close</button>
+        </div>
+    </form>
+</div>

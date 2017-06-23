@@ -1,0 +1,12 @@
+kendo-grid([data]='gridData', [pageSize] = "pageSize", [skip]="skip", [pageable]="true", [sortable]="{ mode: 'multiple' }", [sort] = "sort")
+  kendo-grid-column(field='_id', title='Feature name')
+  kendo-grid-column(field='title', title='Title')
+  kendo-grid-column(field='action', title=' ')
+    template(kendoCellTemplate='', let-dataItem='')
+      button.btn.btn-primary((click)='openForm(dataItem._id)')
+        i.glyphicon.glyphicon-pencil
+      button.btn.btn-warning.m-l-xs((click)='view(dataItem._id)')
+        i.glyphicon.glyphicon-eye-open
+      button.btn.btn-danger.m-l-xs((click)='remove(dataItem._id)')
+        i.glyphicon.glyphicon-remove
+

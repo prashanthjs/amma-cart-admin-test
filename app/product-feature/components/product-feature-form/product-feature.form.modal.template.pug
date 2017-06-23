@@ -1,0 +1,59 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit product feature: '+id: 'Create product feature'}}", formName)
+  .row
+    .col-xs-6
+      - name = '_id';
+      - controlName = formName +'.controls.'+name;
+      +app-form-group(controlName)
+        label  Name
+        input.form-control(type='text', formControlName=name, [readonly]='id')
+        +app-form-errors(controlName)
+          +app-form-error(controlName, 'required')
+            | Please enter feature name
+    .col-xs-4
+      - name = 'title';
+      - controlName = formName +'.controls.'+name;
+      +app-form-group(controlName)
+        label  Title
+        input.form-control(type='text', formControlName=name)
+        +app-form-errors(controlName)
+          +app-form-error(controlName, 'required')
+            | Please enter title
+  .row
+    .col-xs-12
+      h3 Features
+      table.table.table-bordered
+        thead
+          tr
+            th Item name
+            th Item title
+            th
+
+        tbody(formArrayName = 'items')
+          tr(template!="ngFor let item of " + formName + '.controls.items.controls; let i=index')
+            td([formGroupName]='i')
+              - name = '_id';
+              - controlName = formName +'.controls.items.controls[i].controls.'+name;
+              +app-form-group(controlName)
+                input.form-control(type='text', formControlName=name)
+                +app-form-errors(controlName)
+                  +app-form-error(controlName, 'required')
+                    | Please enter name
+            td([formGroupName]='i')
+              - name = 'title';
+              - controlName = formName +'.controls.items.controls[i].controls.'+name;
+              +app-form-group(controlName)
+                input.form-control(type='text', formControlName=name)
+                +app-form-errors(controlName)
+                  +app-form-error(controlName, 'required')
+                    | Please enter title
+            td
+              button.btn.btn-danger.m-l-xs((click)='removeItem(i)')
+                i.glyphicon.glyphicon-remove
+    .col-xs-12.margin-10
+      button.btn.btn-primary.m-l-xs(type='button', (click)='addItem(1)')
+        i.glyphicon.glyphicon-plus.m-r-xs
+        | Add item

@@ -1,0 +1,298 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit product: '+id: 'Create product'}}", formName)
+
+  .row
+    .col-xs-4
+      .row
+        .col-xs-12
+          - name = 'images';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            .row
+              .col-xs-12.profile-pic(*ngIf!=controlName + '.value && ' + controlName + '.value.length')
+                carousel([interval]='5000', [noWrap]='false')
+                  slide(template !='ngFor let image of ' + controlName + '.value; let index=index')
+                    img.col-xs-12.img-responsive([src]='image', style='margin:auto;')
+              .col-xs-12.profile-pic(*ngIf!= '!(' + controlName + '.value && ' + controlName + '.value.length)')
+                img(src= 'http://placehold.it/250X250?text=Upload+image')
+
+            .row
+              .col-xs-12(*ngIf!=controlName + '.value && ' + controlName + '.value.length')
+                .row
+                  .col-xs-4.thumbnail-wrapper(template !='ngFor let image of ' + controlName + '.value; let index=index')
+                    img.img-responsive.img-thumbnail([src]='image')
+                    button.btn.btn-danger.btn-circle(type='button', (click) = 'removeImage(index)')
+                      i.glyphicon.glyphicon-remove
+            .row.m-t-xs
+              .col-xs-6
+                label.btn.btn-block.btn-primary
+                  span.glyphicon.glyphicon-refresh.spinning(*ngIf='imageLoading')
+                  |   {{imageLoading?'Uploading...': 'Add Image'}}
+                  app-file([formElement]=controlName, style='display:none', (loadingStart) = 'imageLoading = true', (loadingComplete) = 'imageLoading = false', [multiple] = 'true')
+
+    .col-xs-8
+      .row
+        .col-xs-6
+          - name = '_id';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Name
+            input.form-control(type='text', formControlName=name, [readonly]='id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter product name
+        .col-xs-6
+          - name = 'title';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Title
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter title
+
+      .row
+        .col-xs-6
+          - name = 'sku';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  SKU
+            input.form-control(type='sku', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter sku
+        .col-xs-6
+          - name = 'categories';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Categories
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter categories
+      .row
+        .col-xs-12
+          - name = 'promoText';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Promo text
+            input.form-control(type='sku', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter promoText
+      .row
+        .col-xs-12
+          - name = 'shortDescription';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Short description
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter categories
+
+    - groupName = 'price';
+    .row(formGroupName = groupName)
+      .col-xs-12
+        h3 Price
+      .col-xs-12
+        .row
+          .col-xs-4
+            - name = 'sell';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Sell price
+              .input-group
+                span.input-group-addon £
+                input.form-control(type='text',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter selling price
+
+          .col-xs-4
+            - name = 'cost';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Cost price
+              .input-group
+                span.input-group-addon £
+                input.form-control(type='text',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter cost price
+
+          .col-xs-4
+            - name = 'list';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label  List price
+              .input-group
+                span.input-group-addon £
+                input.form-control(type='text',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter list price
+
+    - groupName = 'inventory';
+    .row(formGroupName = groupName)
+      .col-xs-12
+        h3 Inventory
+      .col-xs-12
+        .row
+          .col-xs-6
+            - name = 'stock';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label Stock
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter stock
+
+        - groupName1 = 'quantity';
+        .row(formGroupName=groupName1)
+          .col-xs-4
+            - name = 'min';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Min Qty
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter minimum qty
+
+          .col-xs-4
+            - name = 'max';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Max Qty
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter maximum qty
+          .col-xs-4
+            - name = 'step';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Max Qty
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter step
+
+
+    - groupName = 'shipping';
+    .row(formGroupName = groupName)
+      .col-xs-12
+        h3 Shipping
+      .col-xs-12
+        .row
+          .col-xs-6
+            - name = 'weight';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label Weight
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter weight
+          .col-xs-6
+            - name = 'freeShipping';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Is free shipping?
+              div.col-xs-12
+                label.radio-inline
+                  input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                  |  Yes
+                label.radio-inline
+                  input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                  |  No
+
+        - groupName1 = 'box';
+        .row(formGroupName=groupName1)
+          .col-xs-12
+            h5 Box Dimensions
+          .col-xs-4
+            - name = 'breadth';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Box length
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter box length
+
+          .col-xs-4
+            - name = 'width';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Box width
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter box width
+          .col-xs-4
+            - name = 'height';
+            - controlName = formName +'.controls.'+groupName+'.controls.'+groupName1+'.controls.'+name;
+            +app-form-group(controlName)
+              label  Box height
+              input.form-control(type='number',formControlName=name)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please enter box height
+    .row
+      .col-xs-6
+        - name = 'isActive';
+        - controlName = formName +'.controls.'+name;
+        +app-form-group(controlName)
+          label  Is Active?
+          div.col-xs-12
+            label.radio-inline
+              input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+              |  Yes
+            label.radio-inline
+              input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+              |  No
+
+      .col-xs-6
+        - name = 'tags';
+        - controlName = formName +'.controls.'+name;
+        +app-form-group(controlName)
+          label  Product Tags
+          input.form-control(type='text',formControlName=name)
+          +app-form-errors(controlName)
+            +app-form-error(controlName, 'required')
+              | Please enter product tags
+
+
+
+    .row
+      .col-xs-12
+        h3 Availability
+      .col-xs-12(formGroupName = 'available')
+        .row(formGroupName = 'store')
+          .col-xs-6
+            - name = 'name';
+            - controlName = formName +'.controls.available.controls.store.controls.'+name;
+            +app-form-group(controlName)
+              label  Store
+              store-autocomplete([formElement]=controlName)
+              +app-form-errors(controlName)
+                +app-form-error(controlName, 'required')
+                  | Please select a store
+          .col-xs-6
+            - name = 'availableToChildren';
+            - controlName = formName +'.controls.available.controls.store.controls.'+name;
+            +app-form-group(controlName)
+              label  Is Available to child stores?
+              div.col-xs-12
+                label.radio-inline
+                  input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                  |  Yes
+                label.radio-inline
+                  input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                  |  No

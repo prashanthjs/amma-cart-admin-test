@@ -55,6 +55,7 @@
     "metismenu": "^2.5.2",
     "moment": "^2.17.0",
     "ng-bootstrap": "^0.46.0",
+    "ng2-bootstrap": "^1.1.16",
     "ng2-slim-loading-bar": "^2.0.4",
     "ng2-toasty": "^2.1.0",
     "pace": "0.0.4",

@@ -4,6 +4,7 @@ import {StoreFormModal} from "../components/store-form/store.form.modal";
 import {AppDialogService} from "../../shared/core/app.dialog.service";
 import {StoreModel} from "../model/store.model";
 import {StoreDataService} from "./store.data.service";
+import {STORE_DELETE_TITLE, STORE_DELETE_MESSAGE} from "../config/index";
 
 @Injectable()
 export class StoreDialogService extends AppDialogService<StoreModel>{
@@ -12,7 +13,7 @@ export class StoreDialogService extends AppDialogService<StoreModel>{
               dataService: StoreDataService) {
       super(modal, dataService);
       this.formModal = StoreFormModal;
-      this.deleteTitle = 'Delete Store';
-      this.deleteMessage = '<h4> Are you sure want to delete store %(id)s</h4>'
+      this.deleteTitle = STORE_DELETE_TITLE;
+      this.deleteMessage = STORE_DELETE_MESSAGE;
   }
 }

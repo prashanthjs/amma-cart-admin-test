@@ -1,5 +1,4 @@
 @import './node_modules/bootstrap/dist/css/bootstrap.min.css';
-
 @import './node_modules/font-awesome/css/font-awesome.css';
 @import './node_modules/animate.css/animate.min.css';
 @import './node_modules/@telerik/kendo-theme-default/dist/all.css';
@@ -47,4 +46,65 @@
   white-space: nowrap;
   background: 0 0;
   border: 0;
+}
+
+.thumbnail-wrapper {
+
+}
+
+.thumbnail-wrapper .btn-circle {
+  position: absolute;
+  top: -4px;
+  right: 10px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.tag {
+
+}
+.tag a {
+  color: #bbb;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.tag a:hover {
+  opacity: 1.0
+}
+.tag .remove {
+  vertical-align: bottom;
+  top: 0;
+}
+.tag a {
+  margin: 0 0 0 .3em;
+}
+.tag a .glyphicon-white {
+  color: #fff;
+  margin-bottom: 2px;
 }

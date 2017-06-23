@@ -42,7 +42,8 @@
       'sprintf-js': 'npm:sprintf-js/dist/sprintf.min.js',
       'ng2-toasty': 'npm:ng2-toasty',
       'angular2-logger': 'npm:angular2-logger',
-      'ng2-slim-loading-bar': 'node_modules/ng2-slim-loading-bar'
+      'ng2-slim-loading-bar': 'node_modules/ng2-slim-loading-bar',
+      'ng2-bootstrap/ng2-bootstrap': 'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

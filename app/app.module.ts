@@ -24,6 +24,9 @@ import {StoreModule} from "./store/store.module";
 import {UserGroupModule} from "./user-group/user-group.module";
 import {Logger} from "angular2-logger/core";
 import {RoleModule} from "./role/role.module";
+import {CategoryModule} from "./category/category.module";
+import {ProductFeatureModule} from "./product-feature/product-feature.module";
+import {ProductModule} from "./product/product.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +44,9 @@ import {RoleModule} from "./role/role.module";
     UserGroupModule,
     StoreModule,
     UserModule,
+    CategoryModule,
+    ProductFeatureModule,
+    ProductModule,
 
     // Modules
     NavigationModule,

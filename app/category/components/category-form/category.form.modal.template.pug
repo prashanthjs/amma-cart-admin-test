@@ -1,0 +1,88 @@
+include ../../../shared/template/common.pug
+- var formName = 'modelForm';
+- var name = '';
+
++form-modal("{{id?'Edit category: '+id: 'Create category'}}", formName)
+
+  .row
+
+    .col-xs-4
+      .row
+        .col-xs-12
+          - name = 'images';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            .row
+              .col-xs-12.profile-pic(*ngIf!=controlName + '.value && ' + controlName + '.value.length')
+                carousel([interval]='5000', [noWrap]='false')
+                  slide(template !='ngFor let image of ' + controlName + '.value; let index=index')
+                    img.col-xs-12.img-responsive([src]='image', style='margin:auto;')
+              .col-xs-12.profile-pic(*ngIf!= '!(' + controlName + '.value && ' + controlName + '.value.length)')
+                img(src= 'http://placehold.it/250X250?text=Upload+image')
+
+            .row
+              .col-xs-12(*ngIf!=controlName + '.value && ' + controlName + '.value.length')
+                .row
+                  .col-xs-4.thumbnail-wrapper(template !='ngFor let image of ' + controlName + '.value; let index=index')
+                    img.img-responsive.img-thumbnail([src]='image')
+                    button.btn.btn-danger.btn-circle(type='button', (click) = 'removeImage(index)')
+                      i.glyphicon.glyphicon-remove
+            .row.m-t-xs
+              .col-xs-6
+                label.btn.btn-block.btn-primary
+                  span.glyphicon.glyphicon-refresh.spinning(*ngIf='imageLoading')
+                  |   {{imageLoading?'Uploading...': 'Add Image'}}
+                  app-file([formElement]=controlName, style='display:none', (loadingStart) = 'imageLoading = true', (loadingComplete) = 'imageLoading = false', [multiple] = 'true')
+
+    .col-xs-8
+
+      .row
+        .col-xs-6
+          - name = '_id';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Name
+            input.form-control(type='text', formControlName=name, [readonly]='id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter category name
+        .col-xs-4
+          - name = 'title';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Title
+            input.form-control(type='text', formControlName=name)
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please enter title
+      .row
+        .col-xs-6
+          - name = 'isActive';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Is Active?
+            div.col-xs-12
+              label.radio-inline
+                input(type='radio', [value]='true', formControlName=name, [checked]= controlName + ".value === true")
+                |  Yes
+              label.radio-inline
+                input(type='radio', [value]='false',formControlName=name, [checked]= controlName + ".value === false")
+                |  No
+        .col-xs-6
+          - name = 'parent';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Parent category
+            category-autocomplete([formElement]=controlName, [limit]='5', [skipId] = 'id')
+            +app-form-errors(controlName)
+              +app-form-error(controlName, 'required')
+                | Please select a category
+      .row
+        .col-xs-12
+          - name = 'description';
+          - controlName = formName +'.controls.'+name;
+          +app-form-group(controlName)
+            label  Description
+            textarea.form-control(row='5', formControlName=name)
+
+

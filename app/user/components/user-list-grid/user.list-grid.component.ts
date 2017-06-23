@@ -1,23 +1,23 @@
 import {Component, ViewChild} from '@angular/core';
 import {GridComponent} from "@progress/kendo-angular-grid";
-import {StoreDialogService} from "../../services/store.dialog.service";
+import {UserDialogService} from "../../services/user.dialog.service";
 import {Router} from "@angular/router";
-import {StoreModel} from "../../model/store.model";
+import {UserModel} from "../../model/user.model";
 import {AppGrid} from "../../../shared/core/app.grid";
-import {StoreDataService} from "../../services/store.data.service";
+import {UserDataService} from "../../services/user.data.service";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
 
 @Component({
   moduleId: module.id,
-  selector: 'store-list-grid',
-  templateUrl: 'store-list-grid.template.html'
+  selector: 'user-list-grid',
+  templateUrl: 'user.list-grid.template.html'
 })
-export class StoreListGridComponent extends AppGrid<StoreModel> {
+export class UserListGridComponent extends AppGrid<UserModel> {
 
   @ViewChild(GridComponent) grid: GridComponent;
 
-  constructor(dataService: StoreDataService,
-              dialog: StoreDialogService,
+  constructor(dataService: UserDataService,
+              dialog: UserDialogService,
               loadingService: SlimLoadingBarService,
               private router: Router) {
     super(dataService, dialog, loadingService);
@@ -25,6 +25,6 @@ export class StoreListGridComponent extends AppGrid<StoreModel> {
   }
 
   view(id: string) {
-    this.router.navigate(['/stores', id]);
+    this.router.navigate(['/users', id]);
   }
 }
